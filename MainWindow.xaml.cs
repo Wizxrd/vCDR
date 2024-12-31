@@ -1,17 +1,14 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 using vCDR.src;
-using System.Diagnostics;
-using System.Windows.Navigation;
 
 namespace vCDR
 {

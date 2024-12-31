@@ -4,7 +4,6 @@ D:\vCDR\obj\Release\Controls\Templates.baml
 D:\vCDR\obj\Release\Theme\Dark.baml
 D:\vCDR\obj\Release\MainWindow.g.cs
 D:\vCDR\obj\Release\App.g.cs
-D:\vCDR\obj\Release\vCDR_Content.g.cs
 D:\vCDR\obj\Release\vCDR_MarkupCompile.cache
 D:\vCDR\obj\Release\vCDR_MarkupCompile.lref
 D:\vCDR\bin\Release\vCDR.exe.config
@@ -21,3 +20,5 @@ D:\vCDR\obj\Release\vCDR.csproj.CoreCompileInputs.cache
 D:\vCDR\obj\Release\vCDR.csproj.CopyComplete
 D:\vCDR\obj\Release\vCDR.exe
 D:\vCDR\obj\Release\vCDR.pdb
+D:\vCDR\obj\Release\SplashScreen.g.cs
+D:\vCDR\obj\Release\SplashScreen.baml
