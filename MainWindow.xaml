@@ -152,7 +152,7 @@
                 </TextBox>
                 <TextBlock
                     Text="Fix/Route"
-                    ToolTip="Departure fix or any part of a route"
+                    ToolTip="Any segment within a route"
                     Grid.Column="4"
                     Foreground="{DynamicResource TextColor}"
                     FontFamily="Consolas" FontWeight="Light" FontSize="16"

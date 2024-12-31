@@ -6,7 +6,7 @@ namespace vCDR.src
 {
     public class Loader
     {
-        public static bool DEBUG = false;
+        public static bool DEBUG = true;
 
         public static string LoadFile(string folderPath, string fileName)
         {
