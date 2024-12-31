@@ -1,0 +1,38 @@
+﻿<Window x:Class="vCDR.SplashScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:vCDR"
+        mc:Ignorable="d"
+        Width="400" Height="150"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource GrayBackgroundDark}">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
+    <Border Background="{DynamicResource GrayBackground}" BorderBrush="{DynamicResource GrayBorder}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                Text="vCDR"
+                Grid.Row="0"
+                VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
+                Foreground="{DynamicResource TextColor}"
+                FontFamily="Consolas" FontSize="24"
+                Margin="0,25,0,25">
+            </TextBlock>
+            <TextBlock
+                Name ="TextBlockLoading"
+                Text="Initializing Database"
+                Grid.Row="1"
+                VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"
+                Foreground="{DynamicResource TextColor}"
+                FontFamily="Consolas" FontSize="14">
+            </TextBlock>
+        </Grid>
+    </Border>
+</Window>

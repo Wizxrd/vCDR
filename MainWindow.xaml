@@ -1,0 +1,325 @@
+﻿<Window x:Class="vCDR.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:vCDR"
+        mc:Ignorable="d"
+        Width="1280"
+        Height="720"
+        Background="Black"
+        WindowStartupLocation="CenterScreen"
+        StateChanged="WindowStateChanged">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
+    <Grid Name="MainWindowGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Name="TitleBar" Grid.Row="0" Background="{DynamicResource TitleBarButtonColor}" Height="25" MouseDown="TitleBarMouseDown">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    x:Name="TitleBarTextBlock"
+                    Text="vCDR"
+                    Grid.Column="0"
+                    Foreground="{DynamicResource TextColor}"
+                    FontFamily="Consolas" FontWeight="Light" FontSize="14"
+                    VerticalAlignment="Center"
+                    Margin="5,0,0,0">
+                </TextBlock>
+                <TextBlock 
+                    Grid.Column="1" 
+                    FontFamily="Consolas" FontWeight="Light" FontSize="14" 
+                    VerticalAlignment="Center" 
+                    Margin="5,0,0,0">
+                    <Hyperlink 
+                        RequestNavigate="HyperlinkRequestNavigate" 
+                        NavigateUri="https://www.fly.faa.gov/rmt/cdm_operational_coded_departur.jsp" 
+                        Foreground="{DynamicResource BlueBorder}" 
+                        TextDecorations="Underline">
+                        FAA CDR
+                    </Hyperlink>
+                </TextBlock>
+                <TextBlock
+                    x:Name="TilteBarZuluTime"
+                    Text="12:00:00Z"
+                    Grid.Column="2"
+                    Foreground="LimeGreen"
+                    FontFamily="Consolas" FontWeight="Light" FontSize="14"
+                    VerticalAlignment="Center"
+                    Margin="5,0,0,0">
+                </TextBlock>
+                <Button
+                    x:Name="MinimizeButton"
+                    ToolTip="Minimize"
+                    Grid.Column="3"
+                    Width="37"
+                    Style="{DynamicResource WindowsButtonStyle}"
+                    Tag="pack://application:,,,/Images/Minimize.png"
+                    Click="MinimizeButtonClick">
+                </Button>
+                <Button
+                    x:Name="MaximizeButton"
+                    ToolTip="Maximize"
+                    Grid.Column="4"
+                    Width="37"
+                    Style="{DynamicResource WindowsButtonStyle}"
+                    Tag="pack://application:,,,/Images/Maximize.png"
+                    Click="MaximizeButtonClick">
+                </Button>
+                <Button
+                    x:Name="CloseButton"
+                    ToolTip="Close"
+                    Grid.Column="5"
+                    Width="37"
+                    Style="{DynamicResource CloseButtonStyle}"
+                    Tag="pack://application:,,,/Images/Close.png"
+                    Click="CloseButtonClick">
+                </Button>
+            </Grid>
+        </Border>
+        <Border Grid.Row="1" Background="Black" Height="50" HorizontalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Text="Origin"
+                    ToolTip="3-4 character airport icao or 3 character ARTCC code"
+                    Grid.Column="0"
+                    Foreground="{DynamicResource TextColor}"
+                    FontFamily="Consolas" FontWeight="Light" FontSize="16"
+                    VerticalAlignment="Center"
+                    Margin="5,0,0,0">
+                </TextBlock>
+                <TextBox
+                    x:Name="OriginTextBox"
+                    Grid.Column="1"
+                    Height="25"
+                    Width="100"
+                    Background="{DynamicResource GrayBackgroundLight}"
+                    Foreground="{DynamicResource TextColor}"
+                    FontFamily="Consolas" FontWeight="Light" FontSize="16"
+                    VerticalContentAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="5,0,0,0"
+                    Padding="5,0,0,0"
+                    Style="{DynamicResource TextBoxStyle}"
+                    TextChanged="OnTextChanged"
+                    KeyDown="OnKeyDown">
+                </TextBox>
+                <TextBlock
+                    Text="Destination"
+                    ToolTip="3-4 character airport icao or 3 character ARTCC code"
+                    Grid.Column="2"
+                    Foreground="{DynamicResource TextColor}"
+                    FontFamily="Consolas" FontWeight="Light" FontSize="16"
+                    VerticalAlignment="Center"
+                    Margin="10,0,0,0">
+                </TextBlock>
+                <TextBox
+                    x:Name="DestinationTextBox"
+                    Grid.Column="3"
+                    Height="25"
+                    Width="100"
+                    Background="{DynamicResource GrayBackgroundLight}"
+                    Foreground="{DynamicResource TextColor}"
+                    FontFamily="Consolas" FontWeight="Light" FontSize="16"
+                    VerticalContentAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="5,0,0,0"
+                    Padding="5,0,0,0"
+                    Style="{DynamicResource TextBoxStyle}"
+                    TextChanged="OnTextChanged"
+                    KeyDown="OnKeyDown">
+                </TextBox>
+                <TextBlock
+                    Text="Fix/Route"
+                    ToolTip="Departure fix or any part of a route"
+                    Grid.Column="4"
+                    Foreground="{DynamicResource TextColor}"
+                    FontFamily="Consolas" FontWeight="Light" FontSize="16"
+                    VerticalAlignment="Center"
+                    Margin="10,0,0,0">
+                </TextBlock>
+                <TextBox
+                    x:Name="FixTextBox"
+                    Grid.Column="5"
+                    Height="25"
+                    Width="300"
+                    Background="{DynamicResource GrayBackgroundLight}"
+                    Foreground="{DynamicResource TextColor}"
+                    FontFamily="Consolas" FontWeight="Light" FontSize="16"
+                    VerticalContentAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="5,0,0,0"
+                    Padding="5,0,0,0"
+                    Style="{DynamicResource TextBoxStyle}"
+                    TextChanged="OnTextChanged"
+                    KeyDown="OnKeyDown">
+                </TextBox>
+                <Button
+                    x:Name="SearchButton"
+                    ToolTip="Search"
+                    Grid.Column="6"
+                    Width="37"
+                    Height="25"
+                    HorizontalAlignment="Right"
+                    Margin="10,0,0,0"
+                    Tag="pack://application:,,,/Images/Search.png"
+                    Style="{DynamicResource SearchButtonStyle}"
+                    Click="SearchButtonClick">
+                </Button>
+            </Grid>
+        </Border>
+        <Border Grid.Row="2" Margin="5">
+            <DataGrid
+                Name="RouteTable"
+                AutoGenerateColumns="False"
+                HeadersVisibility="Column"
+                Background="{DynamicResource GrayBackgroundDark}"
+                Foreground="{DynamicResource TextColor}"
+                FontFamily="Consolas"
+                BorderBrush="Transparent"
+                FontSize="16"
+                HorizontalGridLinesBrush="{DynamicResource GrayBackgroundLight}"
+                VerticalGridLinesBrush="{DynamicResource GrayBackgroundLight}"
+                RowBackground="{DynamicResource GrayBackgroundDark}"
+                CanUserAddRows="False"
+                SelectionUnit="Cell"
+                SelectionMode="Single">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Height" Value="25"/>
+                        <Setter Property="Background" Value="{DynamicResource TitleBarColor}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+                        <Setter Property="FontFamily" Value="Consolas"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn IsReadOnly="True" Width="125">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="Origin">
+                                <TextBlock.ToolTip>
+                                    <ToolTip Content="Airport"/>
+                                </TextBlock.ToolTip>
+                            </TextBlock>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Orig}" TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn IsReadOnly="True" Width="125">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="Destination">
+                                <TextBlock.ToolTip>
+                                    <ToolTip Content="Airport"/>
+                                </TextBlock.ToolTip>
+                            </TextBlock>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Dest}" TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn IsReadOnly="True" Width="125">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="Departure Fix">
+                                <TextBlock.ToolTip>
+                                    <ToolTip Content="Departure Fix (GATE/RV FIX)" />
+                                </TextBlock.ToolTip>
+                            </TextBlock>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DepartureFix}" TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn IsReadOnly="True" Width="100">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="Nav">
+                                <TextBlock.ToolTip>
+                                    <ToolTip Content="(1) BASIC | (2) RNAV | (3) Q Segment" />
+                                </TextBlock.ToolTip>
+                            </TextBlock>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Nav}" TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn IsReadOnly="False" Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="Routing">
+                                <TextBlock.ToolTip>
+                                    <ToolTip Content="Coded Route"/>
+                                </TextBlock.ToolTip>
+                            </TextBlock>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CodedRoute}" TextWrapping="Wrap">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Coordination}" Value="N">
+                                                    <Setter Property="Foreground" Value="LimeGreen"/>
+                                                    <Setter Property="ToolTip" Value="Preferred"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding CodedRoute, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Coordination}" Value="N">
+                                                    <Setter Property="Foreground" Value="LimeGreen"/>
+                                                    <Setter Property="ToolTip" Value="Preferred"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</Window>
