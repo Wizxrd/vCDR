@@ -22,11 +22,6 @@
     <SolidColorBrush x:Key="BlueSearchMouseOver">#286add</SolidColorBrush>
     <SolidColorBrush x:Key="BlueSearchPressed">#053b9b</SolidColorBrush>
 
-    <!-- Main Control Button Theme -->
     <SolidColorBrush x:Key="TitleBarButtonColor">#141414</SolidColorBrush>
     <SolidColorBrush x:Key="TitleBarButtonTriggers">#252525</SolidColorBrush>
-    <SolidColorBrush x:Key="MainControlButtonBackground">#03344a</SolidColorBrush>
-    <SolidColorBrush x:Key="MainControllButtonPressed">#075579</SolidColorBrush>
-    <SolidColorBrush x:Key="MainControlButtonGray">#757575</SolidColorBrush>
-    <SolidColorBrush x:Key="MainControlButtonMouseOver">#ffe38e</SolidColorBrush>
 </ResourceDictionary>

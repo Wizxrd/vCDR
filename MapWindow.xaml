@@ -1,0 +1,79 @@
+﻿<Window x:Class="vCDR.MapWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        mc:Ignorable="d"
+        Width="1280" MinWidth="640"
+        Height="720" MinHeight="360"
+        Background="{DynamicResource GrayBorderLight}"
+        WindowStartupLocation="CenterScreen"
+        StateChanged="WindowStateChanged">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
+    <Grid x:Name="MapWindowGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Name="TitleBar" Grid.Row="0" Background="{DynamicResource TitleBarButtonColor}" Height="25" MouseDown="TitleBarMouseDown">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    x:Name="TitleBarTextBlock"
+                    Text="vCDR MAP"
+                    Grid.Column="0"
+                    Foreground="{DynamicResource TextColor}"
+                    FontFamily="Consolas" FontWeight="Light" FontSize="14"
+                    VerticalAlignment="Center"
+                    Margin="5,0,0,0">
+                </TextBlock>
+                <TextBlock
+                    x:Name="TilteBarZuluTime"
+                    Text="12:00:00Z"
+                    Grid.Column="1"
+                    Foreground="LimeGreen"
+                    FontFamily="Consolas" FontWeight="Light" FontSize="14"
+                    VerticalAlignment="Center"
+                    Margin="5,0,0,0">
+                </TextBlock>
+                <Button
+                    x:Name="MinimizeButton"
+                    ToolTip="Minimize"
+                    Grid.Column="2"
+                    Width="37"
+                    Style="{DynamicResource WindowsButtonStyle}"
+                    Tag="pack://application:,,,/Images/Minimize.png"
+                    Click="MinimizeButtonClick">
+                </Button>
+                <Button
+                    x:Name="MaximizeButton"
+                    ToolTip="Maximize"
+                    Grid.Column="3"
+                    Width="37"
+                    Style="{DynamicResource WindowsButtonStyle}"
+                    Tag="pack://application:,,,/Images/Maximize.png"
+                    Click="MaximizeButtonClick">
+                </Button>
+                <Button
+                    x:Name="CloseButton"
+                    ToolTip="Close"
+                    Grid.Column="4"
+                    Width="37"
+                    Style="{DynamicResource CloseButtonStyle}"
+                    Tag="pack://application:,,,/Images/Close.png"
+                    Click="CloseButtonClick">
+                </Button>
+            </Grid>
+        </Border>
+        <wv2:WebView2 Grid.Row="1" x:Name="MapWebView" Margin="5"/>
+    </Grid>
+</Window>

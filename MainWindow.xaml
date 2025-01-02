@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:vCDR"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Width="1280"
-        Height="720"
+        Width="1280" MinWidth="640"
+        Height="720" MinHeight="360"
         Background="Black"
         WindowStartupLocation="CenterScreen"
         StateChanged="WindowStateChanged">
@@ -92,6 +93,7 @@
         <Border Grid.Row="1" Background="Black" Height="50" HorizontalAlignment="Center">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -187,9 +189,21 @@
                     Style="{DynamicResource SearchButtonStyle}"
                     Click="SearchButtonClick">
                 </Button>
+                <Button
+                    x:Name="MapButton"
+                    ToolTip="Map"
+                    Grid.Column="7"
+                    Width="37"
+                    Height="25"
+                    HorizontalAlignment="Right"
+                    Margin="10,0,0,0"
+                    Tag="pack://application:,,,/Images/Map.png"
+                    Style="{DynamicResource SearchButtonStyle}"
+                    Click="MapButtonClick">
+                </Button>
             </Grid>
         </Border>
-        <Border Grid.Row="2" Margin="5">
+        <Border x:Name="DataBorder" Grid.Row="2" Margin="5" Visibility="Visible">
             <DataGrid
                 Name="RouteTable"
                 AutoGenerateColumns="False"
@@ -307,7 +321,7 @@
                                         <Style TargetType="TextBox">
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding Coordination}" Value="N">
-                                                    <Setter Property="Foreground" Value="LimeGreen"/>
+                                                    <Setter Property="Foreground" Value="Black"/>
                                                     <Setter Property="ToolTip" Value="Preferred"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -317,9 +331,9 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
+        <wv2:WebView2 x:Name="MapWebView" Grid.Row="2" Margin="5" Visibility="Hidden"/>
     </Grid>
 </Window>
