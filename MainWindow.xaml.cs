@@ -169,13 +169,15 @@ namespace vCDR
                 {
                     if (Regex.IsMatch(waypoint, @"^[A-Za-z]\d+"))
                     {
-                        MessageBox.Show($"AWY: {waypoint}");
+                        //MessageBox.Show($"AWY: {waypoint}");
                     }
                     else if (waypoint.Length > 0 && char.IsDigit(waypoint[waypoint.Length - 1]))
                     {
                         if (i == 0)
                         {
-                            MessageBox.Show($"SID: {waypoint}");
+                            string folderPath = Loader.LoadFolder("SIDs");
+                            string[] files = Directory.GetFiles(folderPath, "*.json");
+                            //MessageBox.Show($"SID: {waypoint}");
                         }
                     }
                     else
@@ -183,7 +185,6 @@ namespace vCDR
                         var coordinate = Route.GetVOR(waypoint);
                         if (coordinate != null)
                         {
-                            //MessageBox.Show($"VOR: {waypoint} | Lat: {coordinate.Value.Latitude} | Lon: {coordinate.Value.Longitude}");
                             coordinates.Add((coordinate.Value.Latitude, coordinate.Value.Longitude));
                         }
                     }
@@ -192,17 +193,17 @@ namespace vCDR
                 {
                     if (Regex.IsMatch(waypoint, @"^[A-Za-z]\d+"))
                     {
-                        MessageBox.Show($"AWY: {waypoint}");
+                        //MessageBox.Show($"AWY: {waypoint}");
                     }
                     else if (waypoint.Length > 0 && char.IsDigit(waypoint[waypoint.Length - 1]))
                     {
                         if (i == 0)
                         {
-                            MessageBox.Show($"SID: {waypoint}");
+                            //MessageBox.Show($"SID: {waypoint}");
                         }
                         else if (i == waypoints.Count() - 1)
                         {
-                            MessageBox.Show($"STAR: {waypoint}");
+                            //MessageBox.Show($"STAR: {waypoint}");
                         }
                     }
                 }
@@ -211,7 +212,6 @@ namespace vCDR
                     var coordinate = Route.GetFix(waypoint);
                     if (coordinate != null)
                     {
-                        //MessageBox.Show($"FIX: {waypoint} | Lat: {coordinate.Value.Latitude} | Lon: {coordinate.Value.Longitude}");
                         coordinates.Add((coordinate.Value.Latitude, coordinate.Value.Longitude));
                     }
                 }
@@ -219,11 +219,11 @@ namespace vCDR
                 {
                     if (i == 0)
                     {
-                        MessageBox.Show($"SID: {waypoint}");
+                        //MessageBox.Show($"SID: {waypoint}");
                     }
                     else if (i == waypoints.Count() - 1)
                     {
-                        MessageBox.Show($"STAR: {waypoint}");
+                        //MessageBox.Show($"STAR: {waypoint}");
                     }
                 }
             }
@@ -249,11 +249,7 @@ namespace vCDR
 
                 var originCoordinates = GetAirportCoordinates(originSearch);
                 var destinationCoordinates = GetAirportCoordinates(destinationSearch);
-                List<(double, double)> routeCoordinates = GetRouteCoordinates(
-                    !string.IsNullOrEmpty(fixSearch)
-                    ? fixSearch
-                    : (codedMatches != null && codedMatches.Count > 0 ? codedMatches[0].CodedRoute : string.Empty)
-                );
+
                 if (originCoordinates != null)
                 {
                     double originLat = originCoordinates.Value.Latitude;
@@ -277,14 +273,18 @@ namespace vCDR
                     double destinationLon = destinationCoordinates.Value.Longitude;
                     mapbox.AddMarker(destinationLat, destinationLon);
                 }
-                else if (routeCoordinates.Count != 0)
+                else
                 {
-                }
+                    /*List<(double, double)> routeCoordinates = GetRouteCoordinates(!string.IsNullOrEmpty(fixSearch) ? fixSearch : (codedMatches != null && codedMatches.Count > 0 ? codedMatches[0].CodedRoute : string.Empty));
+                    if (routeCoordinates.Count > 0)
+                    {
 
-                if (originCoordinates == null && destinationCoordinates == null && codedMatches.Count == 0)
-                {
-                    MessageBox.Show("No matching routes found.", "Invalid search");
-                    RouteTable.ItemsSource = null;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No matching routes found.", "Invalid search");
+                        RouteTable.ItemsSource = null;
+                    }*/
                 }
             }
             else

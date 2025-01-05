@@ -44,5 +44,33 @@ namespace vCDR.src
                 return string.Empty;
             }
         }
+
+        public static string LoadFolder(string folderPath)
+        {
+            try
+            {
+                string folderDir;
+                if (DEBUG)
+                {
+                    string binDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+                    string solutionDir = Directory.GetParent(binDir).FullName;
+                    folderDir = Path.Combine(solutionDir, folderPath);
+                }
+                else
+                {
+                    string exeDir = AppDomain.CurrentDomain.BaseDirectory;
+                    folderDir = Path.Combine(exeDir, folderPath);
+                }
+                if (!Directory.Exists(folderDir))
+                {
+                    Directory.CreateDirectory(folderDir);
+                }
+                return folderDir;
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;
+            }
+        }
     }
 }
